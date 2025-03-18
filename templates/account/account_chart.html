@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xero Account Chart</title>
+</head>
+<body>
+
+    <h1>Xero Account Chart</h1>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Account Code</th>
+                <th>Account Name</th>
+                <th>Account Type</th>
+                <th>Currency</th>
+                <th>Bank Account Number</th>
+                <th>Enable Payments</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+                <tr>
+                    <td>{{ account.Code }}</td>
+                    <td>{{ account.Name }}</td>
+                    <td>{{ account.Type }}</td>
+                    <td>{{ account.CurrencyCode }}</td>
+                    <td>{{ account.BankAccountNumber }}</td>
+                    <td>{{ account.EnablePaymentsToAccount|yesno:"Yes,No" }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6">No accounts available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

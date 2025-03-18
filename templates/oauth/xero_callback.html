@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xero Callback</title>
+</head>
+<body>
+
+    <h1>Xero Callback</h1>
+
+    <div>
+        <p>{{ message }}</p>
+    </div>
+
+    {% if access %}
+        <div>
+            <a href="{% url 'add_xero_account' %}" >Add Xero Account </a><br>
+            <a href="{% url 'fetch_xero_accounts' %}" >View Account Chart</a>
+
+        </div>
+    {% endif %}
+
+</body>
+</html>

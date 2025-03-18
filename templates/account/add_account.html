@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xero Add Account</title>
+</head>
+<body>
+<h2>Add New Xero Account</h2>
+
+{% if error %}
+    <div >{{ error }}</div>
+{% endif %}
+{% if message %}
+    <div >{{ message }}</div>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="account_code">Account Code:</label>
+        <input type="text" name="account_code" id="account_code" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="account_name">Account Name:</label>
+        <input type="text" name="account_name" id="account_name" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="account_type">Account Type:</label>
+        <select name="account_type" id="account_type" class="form-control" required>
+            <option value="BANK">Bank</option>
+            <option value="EXPENSE">Expense</option>
+            <option value="REVENUE">Revenue</option>
+            <option value="LIABILITY">Liability</option>
+            <option value="EQUITY">Equity</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Account</button>
+</form>
+</body></html>
