@@ -2,6 +2,7 @@
 
 This document explains the steps involved in integrating the Xero API to fetch and display account chart data in a Django application. It covers the setup process, the flow of data, and the interaction between the Django backend and Xero API.
 
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -10,6 +11,7 @@ This document explains the steps involved in integrating the Xero API to fetch a
   - [Fetching Data from Xero API](#fetching-data-from-xero-api)
   - [Processing the Data](#processing-the-data)
   - [Rendering the Data in the Template](#rendering-the-data-in-the-template)
+- [Instructions](#instructions)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -67,6 +69,73 @@ Add your Xero credentials (client ID, client secret, and other necessary configu
 - If no accounts are available, a message is displayed indicating that no data was found.
 
 ---
+
+## Instructions
+
+1. **Clone the Repository**
+   - Clone the repository from GitHub by running the following command:
+     ```
+     git clone https://github.com/anjeelupreti/xero_oauth_integration.git
+     cd xero_oauth_integration
+     ```
+
+2. **Set Up a Virtual Environment**
+   - It is recommended to use a virtual environment to manage your dependencies. To set it up, run:
+     - On macOS/Linux:
+       ```
+       python -m venv venv
+       source venv/bin/activate
+       ```
+     - On Windows:
+       ```
+       python -m venv venv
+       venv\Scripts\activate
+       ```
+
+3. **Install Required Dependencies**
+   - Install the necessary dependencies by running:
+     ```
+     pip install -r requirements.txt
+     ```
+
+4. **Configure Xero API Credentials**
+   - Create an account on the [Xero Developer Portal](https://developer.xero.com/) and create a new OAuth application.
+   - Obtain the **client ID**, **client secret**, and **redirect URI**.
+   - In the `settings.py` file of your Django project, add your Xero credentials.
+
+5. **Set Up the Database**
+   - Run the following command to set up your database and apply migrations:
+     ```
+     python manage.py migrate
+     ```
+
+6. **Run the Development Server**
+   - Start the development server by running:
+     ```
+     python manage.py runserver
+     ```
+   - The server will run at `http://127.0.0.1:8000/`.
+
+7. **Authenticate with Xero**
+   - Navigate to `http://127.0.0.1:8000/login/` in your browser.
+   - Log in and authenticate with Xero by granting permissions for your application.
+   - After successful authentication, you will be redirected back to the application.
+
+8. **Fetch Account Information**
+   - Once authenticated, you will be redirected to a page where you can fetch account details from Xero.
+   - Click the **Fetch Accounts** link or visit `http://127.0.0.1:8000/xero/fetch_accounts/` to make the API request to Xero and retrieve account data.
+
+9. **View Account Data**
+   - After fetching the data, visit `http://127.0.0.1:8000/xero/accounts/` to view the list of Xero accounts.
+   - The page will display the accounts in a table format. If no accounts are available, a message will be shown indicating "No accounts available."
+
+10. **Troubleshooting**
+    - If you encounter any issues, check the server logs for error messages.
+    - Ensure your Xero credentials and redirect URI are correctly configured in `settings.py`.
+    - If the access token is expired, the application should automatically refresh it. If needed, manually refresh the token in the Xero Developer Portal.
+
+
+
 
 ## Troubleshooting
 
