@@ -13,26 +13,23 @@
         <p style="color: red;">{{ error }}</p>
     {% endif %}
 
+
     <table class="table">
         <thead>
             <tr>
                 <th>Account Code</th>
                 <th>Account Name</th>
                 <th>Account Type</th>
-                <th>Currency</th>
-                <th>Bank Account Number</th>
-                <th>Enable Payments</th>
+              
             </tr>
         </thead>
         <tbody>
             {% for account in accounts %}
                 <tr>
-                    <td>{{ account.Code }}</td>
-                    <td>{{ account.Name }}</td>
-                    <td>{{ account.Type }}</td>
-                    <td>{{ account.CurrencyCode }}</td>
-                    <td>{{ account.BankAccountNumber }}</td>
-                    <td>{{ account.EnablePaymentsToAccount|yesno:"Yes,No" }}</td>
+                    <td>{{ account.code }}</td>
+                    <td>{{ account.name }}</td>
+                    <td>{{ account.type }}</td>
+                   
                 </tr>
             {% empty %}
                 <tr>

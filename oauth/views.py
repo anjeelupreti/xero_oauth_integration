@@ -14,9 +14,9 @@ def redirect_to_xero(request):
     state = secrets.token_urlsafe(16)  
     xero_client_id = settings.XERO_CLIENT_ID
     xero_redirect_uri = settings.XERO_REDIRECT_URI
-    
-    auth_url = f"{settings.XERO_AUTH_URL}?response_type=code&client_id={xero_client_id}&redirect_uri={xero_redirect_uri}&scope=openid profile accounting.transactions&state={state}"
-    request.session["xero_auth_state"] = state
+    scope=settings.XERO_SCOPES
+    auth_url = f"{settings.XERO_AUTH_URL}?response_type=code&client_id={xero_client_id}&redirect_uri={xero_redirect_uri}&scope={scope}&state={state}"
+    # request.session["xero_auth_state"] = state
     return redirect(auth_url)
 
 def xero_callback(request):
@@ -24,8 +24,8 @@ def xero_callback(request):
     if not code:
         return render(request, 'oauth/xero_callback.html', {"message": "Authorization failed", "access": False})
 
-    returned_state = request.GET.get("state")
-    stored_state = request.session.get("xero_auth_state")
+    # returned_state = request.GET.get("state")
+    # stored_state = request.session.get("xero_auth_state")
 
     # if not returned_state or returned_state != stored_state:
     #     return render(request, 'oauth/xero_callback.html', {"message": "Invalid state parameter", "access": False})
@@ -42,7 +42,9 @@ def xero_callback(request):
     token_data = response.json()
 
     if "access_token" in token_data:
-        # Make expires_at timezone-aware
+        print(f"Access Token : {token_data['access_token']}")
+        print(f"Refresh Token : {token_data['refresh_token']}")
+        # print(f'access token : {token_data["access_token"]}')
         expires_at = timezone.now() + datetime.timedelta(seconds=token_data['expires_in'])
         XeroToken.objects.update_or_create(
             id=1,
